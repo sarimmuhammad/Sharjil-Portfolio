@@ -888,3 +888,77 @@ footer p {
   object-position: center;  /* IMPORTANT FIX */
   display: block;
 }
+.contact-form {
+  background: rgb(1, 24, 41);
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(2, 22, 60, 0.1);
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #0f183e;
+  border-radius: 6px;
+}
+
+.contact-form button {
+  background: rgb(3, 23, 53);
+  color: rgb(142, 156, 182);
+  padding: 10px 15px;
+  border: none;
+  cursor: pointer;
+}
+.success-message {
+  display: none;
+  text-align: center;
+  padding: 32px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  animation: fadeUp .5s ease;
+}
+
+.success-message.show {
+  display: block;
+}
+
+.success-icon {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  font-weight: bold;
+  background: #22c55e;
+  color: white;
+  animation: pop .6s ease;
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(0);
+  }
+  70% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

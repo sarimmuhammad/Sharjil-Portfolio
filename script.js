@@ -78,7 +78,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', (e) => {
     const target = document.querySelector(anchor.getAttribute('href'));
     if (!target) return;
-    e.preventDefault();
     const offset = 80;
     window.scrollTo({
       top: target.offsetTop - offset,
@@ -90,22 +89,33 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // =========================================
 //  CONTACT FORM — simple UX
 // =========================================
-const form = document.getElementById('contactForm');
-if (form) {
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const btn = form.querySelector('.btn-primary');
-    const original = btn.textContent;
-    btn.textContent = 'Message Sent ✓';
-    btn.style.background = '#2e7d52';
-    setTimeout(() => {
-      btn.textContent = original;
-      btn.style.background = '';
-      form.reset();
-    }, 3000);
-  });
-}
+const form = document.getElementById("contactForm");
+const successMessage = document.getElementById("successMessage");
 
+form.addEventListener("submit", async (e) => {
+e.preventDefault(); // 🔥 BLOCKS ALL REDIRECTS
+  const btn = form.querySelector("button");
+  btn.disabled = true;
+  btn.textContent = "Sending...";
+
+  const response = await fetch(form.action, {
+    method: "POST",
+    body: new FormData(form),
+    headers: {
+      Accept: "application/json"
+    }
+  });
+
+  if (response.ok) {
+    form.style.display = "none";
+    successMessage.classList.add("show");
+    form.reset();
+  } else {
+    btn.disabled = false;
+    btn.textContent = "Send Message";
+    alert("Something went wrong. Please try again.");
+  }
+});
 // =========================================
 //  HERO — subtle parallax on scroll
 // =========================================
